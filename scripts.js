@@ -42,16 +42,39 @@ async function displayCatFact() {
 }
 const getCatButton = document.getElementById("get-cat-button");
 getCatButton.addEventListener("click", displayCatFact);
-
-async function getWeather() {
+// This function fetches user coordinates based on location entetered then uses those coordinates to get weather data
+async function getLocation() {
   try {
+    const cityInput = document.getElementById("city-input").value;
     const response = await fetch(
-      `https://api.open-meteo.com/v1/forecast?latitude=29.9547&longitude=-90.0751&hourly=temperature_2m&wind_speed_unit=mph&temperature_unit=fahrenheit&forecast_days=1`
+      `https://nominatim.openstreetmap.org/search?city=${cityInput}&format=json`
     );
     const data = await response.json();
+    const lat = data[0].lat;
+    const lon = data[0].lon;
+    console.log("Latitude:", lat);
+    console.log("Longitude:", lon);
+    getWeather(lat, lon);
+    return { latitude: lat, longitude: lon };
+  } catch (error) {
+    console.error("Please enter a valid city name:", error);
+    const weatherOutput = document.getElementById("weather-output");
+    weatherOutput.textContent = "Please enter a valid city name.";
+    return null;
+  }
+}
+
+async function getWeather(lat, lon) {
+  try {
+    const cityInput = document.getElementById("city-input").value;
+    const response = await fetch(
+      `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m&wind_speed_unit=mph&temperature_unit=fahrenheit&forecast_days=1`
+    );
+    const data = await response.json();
+    console.log(data);
     const temperature = data.hourly.temperature_2m[0];
     const weatherOutput = document.getElementById("weather-output");
-    weatherOutput.textContent = `Current Temperature in New Orleans: ${temperature}°F`;
+    weatherOutput.textContent = `Current Temperature in ${cityInput}: ${temperature}°F`;
     return temperature;
   } catch (error) {
     console.error("Error fetching weather data:", error);
