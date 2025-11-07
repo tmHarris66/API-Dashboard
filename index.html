@@ -11,50 +11,63 @@
     <div class="grid-container">
       <section class="grid-item" id="dog-api">
         <h2>🐶 Random Dog</h2>
-        <button id="get-dog-button">Get Dog</button>
+        <button class="button" id="get-dog-button">Get Dog</button>
         <div class="output" id="dog-output"></div>
       </section>
 
       <section class="grid-item" id="cat-api">
         <h2>🐱 Random Cat Fact</h2>
-        <button id="get-cat-button">Get Cat</button>
+        <button class="button" id="get-cat-button">Get Cat</button>
         <div class="output" id="cat-output"></div>
       </section>
 
       <section class="grid-item" id="weather-api">
         <h2>☀️ Weather Info</h2>
         <input type="text" id="city-input" placeholder="Enter city..." />
-        <button onclick="getLocation()">Get Weather</button>
+        <button class="button" onclick="getLocation()">Get Weather</button>
         <div class="output" id="weather-output"></div>
       </section>
 
       <section class="grid-item" id="currency-api">
         <h2>💱 Currency Rates</h2>
-        <button onclick="getExchangeRates()">Get Rates</button>
+        <button class="button" onclick="getExchangeRates()">Get Rates</button>
         <div class="output" id="currency-output"></div>
       </section>
 
       <section class="grid-item" id="movies-api">
         <h2>🎮 Trending Movies</h2>
-        <button onclick="getMovies()">Get Movies</button>
+        <button class="button" onclick="getMovies()">Get Movies</button>
         <div class="output" id="movies-output"></div>
+        <div class="movie-attribution">
+          Data provided by
+          <a href="https://www.themoviedb.org/" target="_blank" id="tmdb-logo">
+            <img
+              id="tmdb-logo"
+              src="https://www.themoviedb.org/assets/2/v4/logos/v2/blue_square_2-d537fb228cf3ded904ef09b136fe3fec72548ebc1fea3fbbd1ad9e36364db38b.svg"
+              alt="TMDb Logo"
+            />
+          </a>
+        </div>
       </section>
 
       <section class="grid-item" id="github-api">
         <h2>🧑‍💻 GitHub User</h2>
-        <button onclick="getGitHubUser()">Get User</button>
+        <button class="button" onclick="getGitHubUser()">Get User</button>
         <div class="output" id="github-output"></div>
       </section>
 
       <section class="grid-item" id="joke-api">
         <h2>🤣 Random Joke</h2>
-        <button onclick="getJoke()">Get Joke</button>
+        <button class="button" onclick="getJoke()">Get Joke</button>
         <div class="output" id="joke-output"></div>
       </section>
-
+      <section class="grid-item" id="shark-fact">
+        <button class="button" onclick="getSharkFact()">Get Shark Fact</button>
+        <div class="output" id="shark-output"></div>
+      </section>
       <section class="grid-item" id="public-api">
         <h2>📚 Public APIs</h2>
-        <button onclick="getPublicApiInfo()">Show One</button>
+        <button class="button" onclick="getPublicApiInfo()">Show One</button>
         <div class="output" id="publicapi-output"></div>
       </section>
     </div>

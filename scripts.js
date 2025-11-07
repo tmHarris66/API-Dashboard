@@ -21,28 +21,32 @@ async function displayDogImage() {
 
 const getDogButton = document.getElementById("get-dog-button");
 getDogButton.addEventListener("click", displayDogImage);
-async function getCatFact() {
+
+// async function getCatFact() {
+//try {
+//const response = await fetch("https://catfact.ninja/fact");
+//const data = await response.json();
+//return data.fact;
+//} catch (error) {
+//console.error("Error fetching cat fact:", error);
+//return null;
+//}
+
+async function displayCatFact() {
+  const catOutput = document.getElementById("cat-output");
   try {
     const response = await fetch("https://catfact.ninja/fact");
     const data = await response.json();
-    return data.fact;
+    catOutput.textContent = data.fact;
   } catch (error) {
-    console.error("Error fetching cat fact:", error);
-    return null;
-  }
-}
-async function displayCatFact() {
-  const fact = await getCatFact();
-  const catOutput = document.getElementById("cat-output");
-  if (fact) {
-    catOutput.textContent = fact;
-  } else {
     catOutput.textContent = "Failed to load cat fact.";
   }
 }
+
 const getCatButton = document.getElementById("get-cat-button");
 getCatButton.addEventListener("click", displayCatFact);
-// This function fetches user coordinates based on location entetered then uses those coordinates to get weather data
+
+// This function fetches the coordinates of the city entered by the user then sends it to the getWeather function
 async function getLocation() {
   try {
     const cityInput = document.getElementById("city-input").value;
@@ -63,7 +67,7 @@ async function getLocation() {
     return null;
   }
 }
-
+//This function parses the latitude and longitude to get the weather data
 async function getWeather(lat, lon) {
   try {
     const cityInput = document.getElementById("city-input").value;
@@ -79,5 +83,35 @@ async function getWeather(lat, lon) {
   } catch (error) {
     console.error("Error fetching weather data:", error);
     return null;
+  }
+}
+
+async function getMovies() {
+  const moviesOutput = document.getElementById("movies-output");
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4MmMxZjQwOWM0Y2Q5YmUwNTBmYzY0MWVmYjhhYjgzNCIsIm5iZiI6MTc2MjM5NjUxMC45MzIsInN1YiI6IjY5MGMwOTVlM2UzZGYzOGVkYzc4YTZhMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5QXpyfOAMMva88YBK3ESuuQWtdnAqEVgt8k8ySyLD5k",
+    },
+  };
+
+  try {
+    const response = await fetch(
+      "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
+      options
+    );
+    const data = await response.json();
+    const moviesTrend = data.results.slice(0, 5);
+    moviesOutput.innerHTML = moviesTrend
+      .map((movie) => `<p>${movie.title}</p>`)
+      .join("");
+
+    console.log(moviesTrend);
+    return moviesTrend;
+  } catch (error) {
+    console.error("Error fetching movies:", error);
+    moviesOutput.textContent = "Failed to load movies.";
   }
 }
